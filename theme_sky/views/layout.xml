@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <data>
+  	<!-- Customize header  -->
+	<template id="custom_header" inherit_id="website.layout" name="Custom Header">
+
+	  <!-- Assign an id  -->
+	  <xpath expr="//div[@id='wrapwrap']/footer" position="attributes">
+	    <attribute name="id">my_footer</attribute>
+	  </xpath>
+	  <!-- Add an element before the top menu  -->
+	  <xpath expr="//div[@id='wrapwrap']" position="before">
+	    <div class="loader">
+			<div class="fond">
+				<div class="contener_general">
+					<div class="contener_mixte">
+						<div class="ballcolor ball_1">
+							
+						</div>
+					</div>
+					<div class="contener_mixte">
+						<div class="ballcolor ball_2">
+							
+						</div>
+					</div>
+					<div class="contener_mixte">
+						<div class="ballcolor ball_3">
+							
+						</div>
+					</div>
+					<div class="contener_mixte">
+						<div class="ballcolor ball_4">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Back to top -->
+		<div class="back-to-top">
+			<span class="arrow-up"><img src="/theme_sky/src/images/icon-scroll-arrow.png" alt=""/></span><img src="images/icon-scroll-mouse.png" alt="mouse"/>
+		</div>
+		<!-- //end Back to top -->
+	  </xpath>
+
+	  <xpath expr="//div[@id='wrapwrap']/header/div" position="before">
+	    <div class="container">
+	      <div class="row">
+					<div class="header-left col-sm-5 col-md-8">
+						<div class="row">
+							<div class="navbar-welcome col-md-6 compact-hidden hidden-sm hidden-xs">
+								Welcome to ps254!
+							</div>
+							<!-- Mobile menu Button-->
+							<div class="col-xs-2 visible-xs">
+								<div class="expand-nav compact-hidden">
+									<a href="#off-canvas-menu" id="off-canvas-menu-toggle"><span class="icon icon-xl flaticon-menu29"></span></a>
+								</div>
+							</div>
+							<!-- //end Mobile menu Button -->
+							<!-- Logo -->
+							<div class="navbar-logo col-xs-10 col-sm-10 col-md-6 text-center">
+								<a href="index.html"><img src="/theme_sky/static/src/images/logo.png" alt="ps254"/></a>
+							</div>
+							<!-- //end Logo -->
+							<div class="clearfix visible-xs">
+							</div>
+							<!-- Secondary menu -->
+							<div class="top-link pull-right compact-visible">
+								<div class="btn-outer btn-shopping-cart">
+									<a href="#drop-shopcart" class="btn btn-xs btn-default open-cart" data-toggle="dropdown"><span class="icon icon-md flaticon-shopping66"></span><span class="badge">3</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="navbar-secondary-menu col-sm-7 col-md-4 compact-hidden">
+						
+					
+						
+						
+					</div>
+				</div>
+	    </div>
+	  </xpath>
+	   
+	</template>
+
+	  <!-- main body content -->
+	 <template id='theme_sky_custom_footer' name='Custom Sky Footer' inherit_id='website.footer_default'>
+	  
+	  <xpath expr="//div[@class='container hidden-print'] " position="replace">
+    
+		<div id="footer-collapsed">
+			<div class="footer-navbar">
+				<div class="container">
+					<div class="arrow link hidden-xs hidden-sm">
+						<i class="icon flaticon-down14"></i>
+					</div>
+					<div class="collapsed-block">
+						<div class="inside">
+							<h3><span class="link">Information</span>
+							<a class="expander visible-sm visible-xs" href="#TabBlock-2">+</a></h3>
+							<div class="tabBlock" id="TabBlock-2">
+								<ul class="menu">
+									<li><a href="about.html">About Us</a></li>
+									<li><a href="#">Shipping &amp; Returns</a></li>
+									<li><a href="#">Privacy Notice</a></li>
+									<li><a href="#">Conditions of Use</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="collapsed-block">
+						<div class="inside">
+							<h3><span class="link">Customer service</span><a class="expander visible-sm visible-xs" href="#TabBlock-3">+</a></h3>
+							<div class="tabBlock" id="TabBlock-3">
+								<ul class="menu">
+									<li><a href="#">Online support</a></li>
+									<li><a href="#"> FAQs</a></li>
+									<li><a href="#">Call Center</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="collapsed-block">
+						<div class="inside">
+							<h3><span class="link">My account</span><a class="expander visible-sm visible-xs" href="#TabBlock-4">+</a></h3>
+							<div class="tabBlock" id="TabBlock-4">
+								<ul class="menu">
+									<li><a href="#">My Account</a></li>
+									<li><a href="#">Order history</a></li>
+									<li><a href="#">Advanced search</a></li>
+									<li><a href="#">Reviews</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="collapsed-block">
+						<div class="inside">
+							<h3><span class="link">Find Us</span><a class="expander visible-sm visible-xs" href="#TabBlock-5">+</a></h3>
+							<div class="tabBlock" id="TabBlock-5">
+								<ul class="socials socials-lg">
+									<li><a href="#"><span class="icon flaticon-facebook12"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-twitter20"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-google10"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-pinterest9"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-linkedin11"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-youtube18"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-instagram"></span></a></li>
+									<li><a href="#"><span class="icon flaticon-skype12"></span></a></li>
+								</ul>
+								<div class="divider divider-sm visible-xs visible-sm">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="collapsed-block">
+						<div class="inside">
+							<h3><span class="link">CUSTOM HTML BLOCK</span><a class="expander visible-sm visible-xs" href="#TabBlock-6">+</a></h3>
+							<div class="tabBlock" id="TabBlock-6">
+								<ul class="menu menu-icon">
+									<li><span class="icon flaticon-home113"></span>7563 St. Vincent Place, Glasgow</li>
+									<li><span class="icon flaticon-phone163"></span>321321321, 321321321</li>
+									<li><span class="icon icon-xs flaticon-new78"></span><a href="mailto:info@mydomain.com">info@mydomain.com</a></li>
+									<li><span class="icon flaticon-skype12"></span><a href="#">shop.test</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 copyright">
+							© 2015 <a href="#">Ps254</a>. All Rights Reserved.
+						</div>
+						<div class="col-md-4">
+							<ul class="payment-list pull-right">
+								<li><img src="theme_sky/static/src/images/icon-payment-01.png" width="36" height="22" alt=""/></li>
+								<li><img src="theme_sky/static/src/images/icon-payment-02.png" width="36" height="22" alt=""/></li>
+								<li><img src="theme_sky/static/src/images/icon-payment-03.png" width="36" height="22" alt=""/></li>
+								<li><img src="theme_sky/static/src/images/icon-payment-04.png" width="36" height="22" alt=""/></li>
+								<li><img src="theme_sky/static/src/images/icon-payment-05.png" width="36" height="22" alt=""/></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- //end Footer -->
+
+	  </xpath>	  
+
+	</template>
+	<template id='home_page_custome' inherit_id='website.homepage'>
+		<xpath expr="//div[@id='wrap']" position='inside'>
+			<div class="divider-xl"></div>
+<div class="divider-xl"></div>
+<div class="line-divider"></div>
+<div class="divider-lg"></div>
+<section class="container">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3"> <img class="img-responsive animate scale" src="/theme_sky/static/src/images/img-our-store.jpg" alt=""/> </div>
+    <div class="divider-md visible-xs"></div>
+    <div class="col-sm-5 col-md-6 col-lg-5">
+      <h1>WE ARE COMING SOON</h1>
+      <h3>Lorem ipsum dolor</h3>
+      <p>Vestibulum justo. Nulla mauris ipsum, convallis ut, vestibulum eu, tincidunt vel, nisi. Curabitur molestie euismod erat. Proin eros odio, mattis rutrum, pulvinar et, porttitor tortor at nisl. Nam Nullam id justo sed diam aliquam tincidunt. Duis sollicitudin, dui ac commodo iaculis tincidunt. 
+        Aenean quam. Nulla neque purus, ullamcorper nec, eleifend at, fermentum ut, turpis. Mauris et magna, dictum et, pulvinar non, ultricies ac, nibh. <br/>
+      </p>
+      <p class="upper">Donec et mi eu massa ultrices scelerisque. </p>
+      <p class="upper">Nullam ac nisi non eros gravida venenatis sollicitudin lobortis </p>
+     
+      <br/>
+      <p><a href="#" class="btn btn-lg btn-cool">BACK TO HOME PAGE</a> </p>
+    </div>
+    <div class="divider-md visible-xs"></div>
+    <div class="col-sm-4 col-md-3 col-lg-4 text-center">
+      <div class="rect">
+        <div class="animate scale icon-outer"><span class="icon flaticon-new78"></span></div>
+        <h5><strong>NEWSLETTER SIGNUP</strong></h5>
+        <p>Enter your email and we'll send you a coupon with <br/>
+          10% off your next order. Add any text here</p>
+        <br/>
+        <div class="row">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-10">
+            <div class="row noGutter">
+              <div class="col-xs-7">
+                <input type="text" class="form-control pull-right" value="Your E-mail..." onblur="if (this.value == '') {this.value = 'Your E-mail...';}" onfocus="if(this.value == 'Your E-mail...') {this.value = '';}" />
+              </div>
+              <div class="col-xs-5">
+                <button type="submit" class="button btn-cool full-width"><span class="icon flaticon-new78"></span>subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider-lg"></div>
+<div class="line-divider"></div>
+		</xpath>
+	</template>
+  </data>
+</odoo>
