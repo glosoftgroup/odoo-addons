@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <data>
+    
   <template id="snippet_testimonial_opt" name="Snippet Testimonial Options" inherit_id="website.snippet_options">
     <xpath expr="//div[@data-js='background']" position="after">
       <div data-js="snippet_testimonial_options"  data-selector=".snippet_testimonial"> <!-- Options group -->
