@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+    <record id="extended_product_template_form_view" model="ir.ui.view">
+        <field name="name">extend_product.template.common.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>        
+        <field name="arch" type="xml">   
+          <xpath expr="//notebook/page[1]" position="before">              
+              
+              <page string="Extended field">
+                <group name="group_general">
+                  <label for="extended_field" class="oe_edit_only" string="Extended Name"/>
+                  <field string="New field" name='extended_field'/>
+                </group>
+              </page>            
+              
+          </xpath>
+      </field>
+    </record>   
+  </data>
+</odoo>
