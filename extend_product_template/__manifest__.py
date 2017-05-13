@@ -9,7 +9,7 @@
         Extending products module. inherit products related tables by inheriting them
     """,
 
-    'author': "My Company",
+    'author': "Paul . K, Glosoft Group",
     'website': "http://www.glosoftgroup.com",
 
     # Categories can be used to filter modules in modules listing
