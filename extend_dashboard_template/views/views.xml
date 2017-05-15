@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+    <menuitem action="product.product_category_action_form" groups="base.group_no_one" id="extended_menu_product_category_action_form" parent="sales_team.menu_sale_config" sequence="3"/>
+    </data>
+</odoo>
