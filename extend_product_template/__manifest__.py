@@ -9,7 +9,7 @@
         Extending products module. inherit products related tables by inheriting them
     """,
 
-    'author': "Paul . K, Glosoft Group",
+    'author': "Paul .K, Glosoft Group",
     'website': "http://www.glosoftgroup.com",
 
     # Categories can be used to filter modules in modules listing
@@ -26,6 +26,10 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/menu_inherit.xml',
+        # 'views/extension.xml',
+
+
     ],
     # only loaded in demonstration mode
     'demo': [

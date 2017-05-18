@@ -1,21 +1,302 @@
 <odoo>
   <data>
     <record id="extended_product_template_form_view" model="ir.ui.view">
-        <field name="name">extend_product.template.common.form</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>        
-        <field name="arch" type="xml">   
-          <xpath expr="//notebook/page[1]" position="before">              
-              
-              <page string="Extended field">
-                <group name="group_general">
-                  <label for="extended_field" class="oe_edit_only" string="Extended Name"/>
-                  <field string="New field" name='extended_field'/>
-                </group>
-              </page>            
-              
+        <field name="name">extended_product.template.common.form</field>
+        <field name="model">product.template</field>             
+        <field name="inherit_id" ref="product.product_template_form_view"/>    
+        <field name="arch" type="xml">  
+        <!-- inherits products addon at products/views/product_view.xml  -->
+          <xpath expr="//div[@class='oe_title']/div" position="replace">   
+            <div class="oe_title">
+               <div name="options" groups="base.group_no_one">
+                    <div>
+                        <field name="sale_ok"/>
+                        <label for="sale_ok"/>
+                    </div>
+                    <div>
+                        <field name="purchase_ok"/>
+                        <label for="purchase_ok"/>
+                    </div>
+                </div>
+            </div>
           </xpath>
-      </field>
-    </record>   
+         <xpath expr="//notebook/page[1]/group/group" position="replace"> 
+            <group name="group_general"  groups="base.group_no_one" invisible='1'>
+                  <field name="type"/>                 
+            </group> 
+             <group name="Category" invisible='1'>
+                <field name="description_sale" nolabel="1"
+                    placeholder="This note will be displayed on the quotations." invisible='1'/>
+                   
+
+              <field name="description_sale" colspan="4" nolabel="1"
+                  placeholder="This note will be displayed on the quotations."/>
+             </group>  
+
+          </xpath>
+          <xpath expr="//group[@name='group_standard_price']" position="after">
+                <group name="group_general"  groups="base.group_no_one">
+                      <field name="type"/>                 
+                </group>
+                <group name='Category'>
+                   <field name="categ_id" string="Product Category" />
+                    <label for="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                          <div class="o_row" name="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                              <field name="weight"/>
+                          </div>
+                          <field name="tracking" widget="radio" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}" groups="stock.group_production_lot"/>
+                          <label for="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                          <div class="o_row" name="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                              <field name="volume" string="Volume"/>
+                          </div>
+                </group>
+               
+          </xpath>
+          <xpath expr="//group[@name='group_standard_price']" position="replace"> 
+            <group name="group_standard_price">
+                
+                <field name="list_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <label for="standard_price" groups="base.group_user"/>
+                <div name="standard_price_uom" groups="base.group_user">
+                    <field name="standard_price" widget='monetary' options="{'currency_field': 'currency_id'}" class="oe_inline"/>
+                </div>
+                <field name="company_id" groups="base.group_multi_company"
+                    options="{'no_create': True}"/>
+                <field name="uom_id" groups="product.group_uom" options="{'no_create': True}"/>
+                <field name="uom_po_id" groups="product.group_uom" options="{'no_create': True}"/>
+                <field name="currency_id" invisible="1"/> 
+            </group>                     
+          </xpath>
+          <!-- inherit price group -->
+          <xpath expr="//notebook/page[@name='sales']" position="replace"> 
+             <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}" name="sales" groups="base.group_no_one">
+                    <div name="pricelist_item" groups="product.group_product_pricelist">
+                        <separator string="Pricing"/>
+                        <field name="item_ids" nolabel="1" context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">
+                            <tree string="Pricelist Items" editable="bottom">
+                                <field name="pricelist_id" string="Pricelist" required='1'/>
+                                <field name="fixed_price" string="Price" required='1'/>
+                                <field name="min_quantity"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="applied_on" invisible="1"/>
+                            </tree>
+                        </field>
+                    </div>
+                    <group name="sale">
+                        <group name="email_template_and_project"
+                            attrs="{'invisible':[('type', '!=', 'service')]}"/>
+                    </group>
+                </page>           
+          </xpath>
+          <!-- products description -->
+          <xpath expr="//notebook/page[@name='notes']" position="replace"> 
+             <page string="Description" name="notes" >
+                    <group name="description" >
+                        <separator string="Product Description" colspan="4"/>
+                        <field name="description_sale" colspan="4" nolabel="1"
+                            placeholder="This note will be displayed on the quotations."/>
+                    </group>
+                 </page>          
+          </xpath>
+
+        </field>
+    </record>
+    <!-- extend inventory page in product page account/views/product_view.xml -->
+    <record id="extend_account_product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="priority">6</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page name="invoicing" position="replace">
+                    <page string="Tax Rule" name="invoicing" groups="account.group_account_invoice">
+                        <group name="properties">
+                            <group>
+                                <field name="property_account_income_id"
+                                    domain="[('internal_type','=','other'),('deprecated','=',False)]"
+                                    groups="base.group_no_one"/>
+                                <field name="taxes_id" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="property_account_expense_id"
+                                    domain="[('internal_type','=','other'),('deprecated','=',False)]"
+                                    groups="base.group_no_one"/>
+                                <field name="supplier_taxes_id" widget="many2many_tags" groups="base.group_no_one"/>
+                            </group>
+                        </group>
+                        <group name="accounting" groups="base.group_no_one"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+        <record id="inherited_view_template_property_form" model="ir.ui.view">
+            <field name="name">inherited.product.template.stock.property.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//group[@name='inventory']" position="replace">
+               
+                    
+                        <group name="inventory" invisible='1'>
+                            <group>
+                                <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}"/>
+                                <field name="route_from_categ_ids" widget="many2many_tags" readonly="1" attrs="{'invisible':[('route_from_categ_ids', '=', [])]}"/>
+                            </group>
+                            <group name="group_lots_and_weight">
+                                <label for="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                                <div class="o_row" name="weight" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                                    <field name="weight"/>
+                                </div>
+                                <field name="tracking" widget="radio" attrs="{'invisible':[('type', 'in', ['service', 'digital'])]}" groups="stock.group_production_lot"/>
+                                <label for="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"/>
+                                <div class="o_row" name="volume" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}">
+                                    <field name="volume" string="Volume"/>
+                                </div>
+                            </group>
+                            <group name="stock_property" groups="base.group_no_one">
+                                <field name="property_stock_procurement" domain="[('usage','=','procurement')]"/>
+                                <field name="property_stock_production" domain="[('usage','=','production')]"/>
+                                <field name="property_stock_inventory" domain="[('usage','=','inventory')]"/>
+                            </group>
+                        </group>
+                   
+              
+                <field name="description_sale" position="after">
+                    <separator string="Description for Pickings" colspan="4"/>
+                    <field name="description_picking" placeholder="Description for Pickings (Rack, Row and Case Information)" nolabel="1" colspan="4"/>
+                </field>
+                <group name="email_template_and_project" position="before">
+                    <group name="sale_condition" string="Sale Conditions">
+                        <label for="warranty" groups="stock.group_production_lot"/>
+                        <div groups="stock.group_production_lot">
+                            <field name="warranty" class="oe_inline"/> months
+                        </div>
+                        <label for="sale_delay"/>
+                        <div>
+                            <field name="sale_delay" attrs="{'readonly':[('sale_ok','=',False)]}" class="oe_inline" style="vertical-align:baseline"/> days
+                        </div>
+                    </group>
+                </group>
+              </xpath>
+            </field>
+        </record>
+    <!-- env extend inventory view -->
+    <!-- remove invoicing policy from product form  -->
+<!--     <record model="ir.ui.view" id="inherit_product_template_form_view_invoice_policy">
+            <field name="name">product.template.invoice.policy</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="sale.product_template_form_view_invoice_policy"/>
+            <field name="arch" type="xml">
+                <xpath expr="." position="replace">
+                  <page groups="base.group_no_one"> 
+                    <separator string="Invoicing Policy" />
+                    <group>
+                        <field name="invoice_policy" widget="radio"/>
+                        <field name="track_service" widget="radio" invisible="True"/>
+                    </group>
+                  </page>
+               </xpath>
+            </field>
+        </record> -->
+    <!-- end remove invoicing policy -->
+    <!-- list view -->
+    <record id="extended_product_product_tree_view" model="ir.ui.view">
+            <field name="name">new.product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name='type'>tree</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+
+                <tree string="Product View">
+                    
+                    <field name="lst_price"/>                   
+                    <field name="name"/>
+                    
+                    <field name="lst_price"/>
+                    <field name="price" invisible="not context.get('pricelist',False)"/>                                     
+                    
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!-- end list view -->
+    <record id="extended_product_action" model="ir.actions.act_window">
+      <field name="name">Products</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">product.template</field>
+      <field name="view_type">form</field>      
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="extended_product_product_tree_view"/>
+    </record>
+
+        <!-- form action  -->
+    <record id="extended_form_product_action" model="ir.actions.act_window">
+      <field name="name">Products.Form</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">product.template</field>
+      <field name="view_type">form</field>      
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="extended_product_template_form_view"/>
+    </record>
+
+    <!-- top level menu: no parent -->
+    <menuitem id="main_extended_product_menu" name="Product Module"/>
+    <!-- A first level in the left side menu is needed
+       before using action= attribute -->
+    <menuitem id="extended_product_menu" name="Product Catalogue"
+          parent="main_extended_product_menu"/>
+
+
+    <menuitem id="submenu_extend_product" name="Products" parent="extended_product_menu"
+          action="product.product_template_action_all"/>
+    <menuitem id="submenu_extend_product2" name="Add Products" parent="extended_product_menu"
+    action="extended_form_product_action"/>
+
+    <menuitem id="submenu_extend_product_categories" name="Product Categories" parent="extended_product_menu"
+    action="product.product_category_action_form"/>
+
+    <menuitem id="submenu_extend_product_variants" name="Product Variants" parent="extended_product_menu"
+    action="product.product_normal_action"/>
+
+    <!-- report menu title -->
+    <menuitem id="extended_product_report_menu" name="Reports"
+          parent="main_extended_product_menu"/>
+
+    <menuitem id="submenu_extend_product_report_inventory" name="Inventory Valuation" parent="extended_product_report_menu"
+    action="stock.quantsact"/>
+
+     <menuitem id="submenu_extend_product_report_sales" name="Sales" parent="extended_product_report_menu"
+    action="sale.action_order_report_all"/>
+    
+    <!-- product Module settings -->
+    <menuitem id="extended_product_settings_menu" name="Settings"
+          parent="main_extended_product_menu"/>
+
+     <!-- Product settings -->
+    <menuitem id="extended_product_settings_menu_products" name="Products"
+          parent="extended_product_settings_menu"/>
+
+    <menuitem id="submenu_extend_product_attr" name="Product Attributes" parent="extended_product_settings_menu_products"
+    action="product.variants_action"/>
+
+    <menuitem id="submenu_extend_product_uom" name="Units of Measure" parent="extended_product_settings_menu_products"
+    action="product.product_uom_form_action"/>
+
+    <menuitem id="submenu_extend_product_uom_cat" name="Units of Measure Categories" parent="extended_product_settings_menu_products"
+    action="product.product_uom_categ_form_action"/>
+
+    <!-- Tax settings -->
+    <menuitem id="submenu_extend_product_tax" name="Taxes" parent="extended_product_settings_menu"
+    action="account.action_tax_form"/>
+
+    <!-- Pricelist settings -->
+    <menuitem id="extended_product_settings_menu_pricelist" name="Pricelists"
+          parent="extended_product_settings_menu"/>
+    <!-- pricelist submenus -->
+    <menuitem id="submenu_extend_product_pricelist" name="Pricelists" parent="extended_product_settings_menu_pricelist"
+    action="product.product_pricelist_action2"/>
+
+     
   </data>
 </odoo>

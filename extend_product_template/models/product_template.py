@@ -4,6 +4,7 @@ from odoo import models, fields, api
 
 
 class XtendProductTemplate(models.Model):
+	_name = 'product.template.extension'
 	_inherit = 'product.template'
 
 	# Add a new column to the product.template model, by default partners are not
